@@ -11,6 +11,9 @@ import pandas as pd
 import folium
 import branca.colormap as cm
 
+#TODO: documentation
+#TODO: image, imagecollection try-exept statements
+#TODO: imagecollection to image filters (xarray.sel()-like)
 
 # =============================================================================
 #  Connection functions
@@ -128,7 +131,7 @@ def extract_multiple_pointvalues(datasetname, lats, lons, band=None, scale=1000)
 
 def extract_timeseries_at_point(datasetname, lat, lon, startdatestr, enddatestr,list_of_bands=None, scale=1000):
     
-    raster = ee.Image(datasetname)
+    # raster = ee.Image(datasetname)
     # if isinstance(list_of_bands, type(None)):
     #     bandnames = raster.bandNames().getInfo()
         

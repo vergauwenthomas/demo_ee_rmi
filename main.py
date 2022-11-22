@@ -11,16 +11,22 @@ import geopandas as gpd
 from datetime import datetime
 import gee_functions as gee
 
-#%% Settings
 
 
-
-outputfile = "/home/thoverga/Documents/github/demo_ee_rmi/mymap.html"
 
 
 
 #%%
+# =============================================================================
+# Make shure to connect to the google servers 
+# =============================================================================
 gee.connect_to_gee()
+
+
+
+
+
+
 
 #%%
 # =============================================================================
@@ -57,6 +63,25 @@ height_points = gee.extract_multiple_pointvalues(datasetname=Nasa_DEM,
 
 print(f'Height of points: {height_points}')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #%%
 # =============================================================================
 # Demo 2. Timeseries at the RMI
@@ -89,9 +114,17 @@ timeseries_RMI = gee.extract_timeseries_at_point(datasetname=ERA5,
 print(timeseries_RMI.head())
 
 
-#%%
-Dataset = "USGS/SRTMGL1_003" #DEM
-gee.make_ee_plot(Dataset, vmin=0, vmax=150)
+
+timeseries_RMI['mean_2m_air_temperature'].plot()
+
+
+
+
+
+
+
+
+
 
 
 
@@ -102,7 +135,7 @@ gee.make_ee_plot(Dataset, vmin=0, vmax=150)
 import ee
 
 
-# 1. Spatial plot of Image (static)
+# 1. Spatial plot of IMAGE (static)
 
 
 raster = "USGS/SRTMGL1_003" #DEM NASA
@@ -118,12 +151,19 @@ gee.make_ee_plot(ee_dataset=raster,
                  vmax=150,
                  mincolor='white',
                  maxcolor='blue',
-                 outputfile="/home/thoverga/Documents/github/google_earth_engine/mymap.html"
+                 outputfile="/home/thoverga/Documents/github/demo_ee_rmi/mymap.html"
                  )
 
 
+
+
+
+
+
+
+
 #%%
-# 2. Spatial plot of image collection (time depending)
+# 2. Spatial plot of IMAGECOLLECTION (time depending)
 
 ERA5 = "ECMWF/ERA5/DAILY"
 
@@ -131,7 +171,7 @@ band = "mean_2m_air_temperature"
 
 moment = '2010-10-20'
 
-#convert dataset to image for the given band and timeinstance
+#convert ImageCollection to image for the given band and timeinstance
 raster = ee.ImageCollection(ERA5).select(band).filterDate(moment).first()
 
 gee.make_ee_plot(ee_dataset=raster,
@@ -141,9 +181,9 @@ gee.make_ee_plot(ee_dataset=raster,
                  right_top_lat=51.45, #Flanders
                  vmin=277,
                  vmax=282,
-                 mincolor='white',
-                 maxcolor='blue',
-                 outputfile="/home/thoverga/Documents/github/google_earth_engine/mymap.html"
+                 mincolor='blue',
+                 maxcolor='red',
+                 outputfile="/home/thoverga/Documents/github/demo_ee_rmi/mymap.html"
                  )
 
 
